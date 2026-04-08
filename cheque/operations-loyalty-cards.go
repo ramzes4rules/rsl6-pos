@@ -2,9 +2,8 @@ package cheque
 
 import "fmt"
 
-// AddLoyaltyCards adds loyalty cards to the receipt based on the provided string of card numbers
+// AddLoyaltyCards sets the loyalty cards on the receipt from the provided list.
 func (cheque *Cheque) AddLoyaltyCards(cards []string) {
-	//crds := strings.StringToArray(cards)
 	if len(cards) > 0 {
 		cheque.DiscountCard = []DiscountCard{}
 		for _, card := range cards {

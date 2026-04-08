@@ -7,7 +7,6 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/ramzes4rules/rsl6-pos/models"
 )
 
 type Type string
@@ -94,10 +93,10 @@ type Discounts struct {
 }
 
 type Discount struct {
-	DiscountID int32                `xml:"DiscountID,attr"` // Внутренний ID скидки.
-	Type       *models.DiscountType `xml:"Type,attr"`       // Тип скидки:
-	Percent    *float64             `xml:"Percent,attr"`    // Величина процента скидки
-	Amount     float64              `xml:"Amount,attr"`     // Величина скидки в единицах оплаты
+	DiscountID int32         `xml:"DiscountID,attr"` // Внутренний ID скидки.
+	Type       *DiscountType `xml:"Type,attr"`       // Тип скидки:
+	Percent    *float64      `xml:"Percent,attr"`    // Величина процента скидки
+	Amount     float64       `xml:"Amount,attr"`     // Величина скидки в единицах оплаты
 }
 
 type Item struct {
@@ -119,6 +118,32 @@ type Message struct {
 
 type Payments struct {
 	Payments []struct{} `xml:"Payment,omitempty"`
+}
+
+// AddPosDiscount adds a POS discount to the cheque line.
+func (line *Line) AddPosDiscount(amount float64) {
+	dt := DiscountAmount
+	line.Discounts.Discounts = append(line.Discounts.Discounts, Discount{
+		DiscountID: 0,
+		Type:       &dt,
+		Amount:     amount,
+	})
+}
+
+// AddCoupon appends a coupon to the cheque line.
+func (line *Line) AddCoupon(coupon string) {
+	line.Coupon = append(line.Coupon, Coupon{CouponNo: coupon})
+}
+
+// GetPosDiscount returns the total POS discount applied to the cheque line.
+func (line *Line) GetPosDiscount() float64 {
+	var total float64
+	for _, d := range line.Discounts.Discounts {
+		if d.DiscountID == 0 {
+			total += d.Amount
+		}
+	}
+	return total
 }
 
 func newChequeNo() string {
@@ -279,12 +304,11 @@ func (cheque *Cheque) CancelReceipt() {
 	cheque.Status = StatusCancelled
 }
 
+// GetSample populates the check with sample data for testing purposes.
 func (cheque *Cheque) GetSample() *Cheque {
 
-	// Set cheque headers
 	cheque.setChequeHeaders()
 
-	// Add sample loyalty card
 	cheque.DiscountCard = append(cheque.DiscountCard, DiscountCard{
 		DiscountCardNo:       "3846656766",
 		SubtractAmount:       0,
@@ -294,25 +318,6 @@ func (cheque *Cheque) GetSample() *Cheque {
 
 	cheque.Coupon = append(cheque.Coupon, Coupon{CouponNo: "9900003221"})
 
-	// Добавляем строки чека
-
-	//pos-operation.A.AddLine(uuid.New().String(), 150.0, 3.0, false, false, false, nil)
-	//pos-operation.AddLine(uuid.New().String(), 250.0, 2.0, false, false, false, nil)
-
-	// Заполянем дисконт по чеку
-	//cheque.Discounts = dto.Discounts{Discounts: []dto.Discount{{
-	//	DiscountID: 1022,
-	//	Type:       dto.FixPrice,
-	//	Percent:    0,
-	//	Amount:     10,
-	//}, {
-	//	DiscountID: 1021,
-	//	Type:       dto.Amount,
-	//	Percent:    0,
-	//	Amount:     5,
-	//}}}
-
-	// Заполянем сообщения в чеке
 	cheque.Messages = &Messages{
 		Messages: []Message{{
 			MessageID: "556",
@@ -325,17 +330,5 @@ func (cheque *Cheque) GetSample() *Cheque {
 		}},
 	}
 
-	//cheque.Languages = &Languages{}
-	//cheque.Languages.Languages = []s
-
-	//// Сериализуем чек в xml-формате
-	//var response, err = xml.MarshalIndent(cheque, "", "   ")
-	//if err != nil {
-	//	fmt.Println(err)
-	//	return ""
-	//}
-	//
-	//// Возвращаем чек обратно
-	//return string(response)
 	return cheque
 }

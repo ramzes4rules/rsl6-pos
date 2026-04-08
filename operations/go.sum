@@ -1,6 +1,0 @@
-github.com/google/uuid v1.6.0 h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=
-github.com/google/uuid v1.6.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
-github.com/ramzes4rules/rsl6-pos v0.0.0-20260408095540-f1e0bc48c55e h1:aijr55v382XeoKh4H6+yrVBcwIHS43dEXb465JwTUNA=
-github.com/ramzes4rules/rsl6-pos v0.0.0-20260408095540-f1e0bc48c55e/go.mod h1:dH1qov8nUEJtDFAnX9glp1xfHeZKDenHANLkpAcNlwc=
-github.com/ramzes4rules/rsl6-pos/models v0.0.0-20260408095540-f1e0bc48c55e h1:weD68lsnawZ1/WsdFwnvVEah0LysZVi5fCz36CUNGow=
-github.com/ramzes4rules/rsl6-pos/models v0.0.0-20260408095540-f1e0bc48c55e/go.mod h1:LSPEJxOueW1fpYDtbgG0fS9KpGy4lukJSAsK/bptN3k=

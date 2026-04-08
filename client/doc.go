@@ -11,7 +11,7 @@
 //     serialization types, and WCF-specific protocol details. Hidden behind Go's
 //     internal package convention — not accessible to consumers.
 //
-//   - Client layer (client.go, operations.go): the Client struct that implements
+//   - Client layer (client.go, cashier-service.go): the Client struct that implements
 //     the Service interface by bridging domain calls to the SOAP infrastructure.
 //
 //   - Mock layer (mock/): testify-based mock of the Service interface for use
