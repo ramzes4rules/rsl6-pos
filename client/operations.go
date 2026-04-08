@@ -6,7 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 
-	"github.com/ramzes4rules/rsl6.pos.client/internal/soap"
+	"github.com/ramzes4rules/rsl6-pos/client/internal/soap"
 )
 
 // ==================== Ping ====================
