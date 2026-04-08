@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Cheque xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        StoreID="1" ShiftNo="Номер смены"
+        ChequeUID="UID чека" ChequeNo="Номер чека"
+        OpenTime="2015-01-01T00:00:00" CloseTime="2015-01-10T00:10:00"
+        Amount="1234.56" SubtractedBonus="123" PositionCount="4"
+        Status="Open" ChequeType="Sale">
+    <SaleCheque StoreID="0" ChequeNo="2951"
+                OpenTime="2015-01-01T00:00:00" CloseTime="2015-01-10T00:10:00"
+                Amount="0" SubtractedBonus="0" PositionCount="0"
+                Status="Closed" ChequeType="Sale">
+        <ChequeLines />
+        <Discounts />
+        <Payments />
+        <Messages />
+    </SaleCheque>
+    <DiscountCard
+            DiscountCardID="0" DiscountCardNo="Номер_бонусной_карты"
+            BonusCard="true" EnteredAsPhoneNumber="false"
+            SubtractAmount="10" />
+    <DiscountCard
+            DiscountCardID="0" DiscountCardNo="Номер_подарочной_карты"
+            BonusCard="false" EnteredAsPhoneNumber="false"
+            SubtractAmount="100" />
+    <Coupon CouponNo="Номер_купона" />
+    <ChequeLines>
+        <ChequeLine ChequeLineNo="1"
+                    Price="50.50" Quantity="1" Amount="40.50"
+                    MinAmount="0" MinPrice="50.50" MaxDiscount="20" BonusDiscount="10">
+            <Item ItemID="1" ItemUID="внешний_ID1" Barcode="штрих-код товара1" />
+        </ChequeLine>
+        <ChequeLine ChequeLineNo="2"
+                    Price="150.50" Quantity="1" Amount="0"
+                    MinAmount="0" MinPrice="100" MaxDiscount="20" BonusDiscount="150.50">
+            <Item ItemID="2" ItemUID="внешний_ID2" Barcode="штрих-код товара2" />
+            <Coupon CouponNo="Номер_купона" />
+        </ChequeLine>
+        <ChequeLine ChequeLineNo="3"
+                    Price="180.50" Quantity="1" Amount="99.99"
+                    MinAmount="0" MinPrice="99.99" MaxDiscount="10" BonusDiscount="0">
+            <Item ItemID="3" ItemUID="внешний_ID3" Barcode="штрих-код товара3" />
+            <Discounts>
+                <Discount DiscountID="0" Type="FixPrice" Percent="0" Amount="99.99" />
+            </Discounts>
+        </ChequeLine>
+        <ChequeLine ChequeLineNo="4"
+                    NoPayBonus="false" NoAddBonus="false" NoDiscounts="false"
+                    Price="210" Quantity="1" Amount="200"
+                    MinAmount="0" MinPrice="0" MaxDiscount="20" BonusDiscount="0">
+            <Item ItemID="4" ItemUID="внешний_ID4" Barcode="штрих-код товара4" />
+            <Discounts>
+                <Discount DiscountID="0" Type="Amount" Percent="0" Amount="10" />
+            </Discounts>
+        </ChequeLine>
+    </ChequeLines>
+    <Discounts>
+        <Discount DiscountID="0" Type="FixPrice" Percent="0" Amount="99.99" />
+        <Discount DiscountID="0" Type="Amount" Percent="0" Amount="10" />
+    </Discounts>
+    <Payments>
+        <Payment PaymentUID="внутреннийID_платежа" PaymentNo="1" Type="1" Amount="100" />
+    </Payments>
+    <Messages>
+        <Message MessageID="12" Device="Cheque = 0 или  CustomerDisplay = 1 или CashierDisplay = 2" Body="Сообщение для кассира" />
+    </Messages>
+</Cheque>

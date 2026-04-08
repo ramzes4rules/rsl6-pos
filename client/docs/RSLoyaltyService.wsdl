@@ -1,0 +1,1473 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions name="RSLoyaltyService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://tempuri.org/" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+	<wsp:Policy wsu:Id="CustomBinding_IRSLoyaltyService_policy">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<wsp:Policy>
+						<sp:TransportToken>
+							<wsp:Policy>
+								<sp:HttpsToken RequireClientCertificate="false"/>
+							</wsp:Policy>
+						</sp:TransportToken>
+						<sp:AlgorithmSuite>
+							<wsp:Policy>
+								<sp:Basic256/>
+							</wsp:Policy>
+						</sp:AlgorithmSuite>
+						<sp:Layout>
+							<wsp:Policy>
+								<sp:Strict/>
+							</wsp:Policy>
+						</sp:Layout>
+						<sp:IncludeTimestamp/>
+					</wsp:Policy>
+				</sp:TransportBinding>
+				<sp:EndorsingSupportingTokens xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<wsp:Policy>
+						<sp:SecureConversationToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+							<wsp:Policy>
+								<sp:BootstrapPolicy>
+									<wsp:Policy>
+										<sp:SignedParts>
+											<sp:Body/>
+											<sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing"/>
+											<sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing"/>
+											<sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+											<sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+											<sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing"/>
+											<sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+											<sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing"/>
+										</sp:SignedParts>
+										<sp:EncryptedParts>
+											<sp:Body/>
+										</sp:EncryptedParts>
+										<sp:TransportBinding>
+											<wsp:Policy>
+												<sp:TransportToken>
+													<wsp:Policy>
+														<sp:HttpsToken RequireClientCertificate="false"/>
+													</wsp:Policy>
+												</sp:TransportToken>
+												<sp:AlgorithmSuite>
+													<wsp:Policy>
+														<sp:Basic256/>
+													</wsp:Policy>
+												</sp:AlgorithmSuite>
+												<sp:Layout>
+													<wsp:Policy>
+														<sp:Strict/>
+													</wsp:Policy>
+												</sp:Layout>
+												<sp:IncludeTimestamp/>
+											</wsp:Policy>
+										</sp:TransportBinding>
+										<sp:SignedSupportingTokens>
+											<wsp:Policy>
+												<sp:UsernameToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+													<wsp:Policy>
+														<sp:WssUsernameToken10/>
+													</wsp:Policy>
+												</sp:UsernameToken>
+											</wsp:Policy>
+										</sp:SignedSupportingTokens>
+										<sp:Wss11>
+											<wsp:Policy/>
+										</sp:Wss11>
+										<sp:Trust10>
+											<wsp:Policy>
+												<sp:MustSupportIssuedTokens/>
+												<sp:RequireClientEntropy/>
+												<sp:RequireServerEntropy/>
+											</wsp:Policy>
+										</sp:Trust10>
+									</wsp:Policy>
+								</sp:BootstrapPolicy>
+							</wsp:Policy>
+						</sp:SecureConversationToken>
+					</wsp:Policy>
+				</sp:EndorsingSupportingTokens>
+				<sp:Wss11 xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<wsp:Policy/>
+				</sp:Wss11>
+				<sp:Trust10 xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<wsp:Policy>
+						<sp:MustSupportIssuedTokens/>
+						<sp:RequireClientEntropy/>
+						<sp:RequireServerEntropy/>
+					</wsp:Policy>
+				</sp:Trust10>
+				<wsaw:UsingAddressing/>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+	<wsdl:types>
+		<xs:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+			<xs:import namespace="http://schemas.datacontract.org/2004/07/RS.Loyalty.Domain.Protocol"/>
+			<xs:import namespace="http://schemas.datacontract.org/2004/07/System"/>
+			<xs:import namespace="http://schemas.microsoft.com/Message"/>
+			<xs:element name="Ping">
+				<xs:complexType>
+					<xs:sequence/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="PingResponse">
+				<xs:complexType>
+					<xs:sequence/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="IsOnline">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="version" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="IsOnlineResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="IsOnlineResult" type="xs:boolean"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetParameters">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="isStore" type="xs:boolean"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetParametersResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="GetParametersResult" nillable="true" type="q1:ArrayOfKeyValueOfstringstring" xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetStoreSettings">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="currentSettings" nillable="true" type="q2:StoreConfig" xmlns:q2="http://schemas.datacontract.org/2004/07/RS.Loyalty.Domain.Protocol"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetStoreSettingsResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="GetStoreSettingsResult" nillable="true" type="q3:StoreConfig" xmlns:q3="http://schemas.datacontract.org/2004/07/RS.Loyalty.Domain.Protocol"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="RegisterDiscountCard">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="discountCardNumber" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="RegisterDiscountCardResponse">
+				<xs:complexType>
+					<xs:sequence/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="IsCardValid">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="discountCardNumber" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="IsCardValidResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="IsCardValidResult" type="xs:boolean"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="IsCouponValid">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="couponNumber" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="IsCouponValidResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="IsCouponValidResult" type="xs:boolean"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetVerifyCode">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="discountCardNumber" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetVerifyCodeResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="GetVerifyCodeResult" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetCardBalance">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="discountCardNumber" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetCardBalanceResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="GetCardBalanceResult" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetCardDiscountAmount">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="discountCardNumber" nillable="true" type="xs:string"/>
+						<xs:element minOccurs="0" name="cheque" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetCardDiscountAmountResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="GetCardDiscountAmountResult" type="xs:decimal"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetCardDiscountAmountString">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="discountCardNumber" nillable="true" type="xs:string"/>
+						<xs:element minOccurs="0" name="cheque" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetCardDiscountAmountStringResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="GetCardDiscountAmountStringResult" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetMessages">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="cheque" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetMessagesResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="GetMessagesResult" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetDiscounts">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="cheque" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetDiscountsResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="GetDiscountsResult" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetEmail">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="discountNumber" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetEmailResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="GetEmailResult" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetSelfBuyDiscounts">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="cheque" nillable="true" type="xs:string"/>
+						<xs:element minOccurs="0" name="storeId" type="xs:long"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetSelfBuyDiscountsResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="GetSelfBuyDiscountsResult" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Accrual">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="cheque" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="AccrualResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="AccrualResult" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="OfflineAccrual">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="cheque" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="OfflineAccrualResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="OfflineAccrualResult" type="xs:boolean"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Refund">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="refundRefundCheque" nillable="true" type="xs:string"/>
+						<xs:element minOccurs="0" name="chequeID" type="xs:long"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="RefundResponse">
+				<xs:complexType>
+					<xs:sequence/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SubtractBonus">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="discountCardNumber" nillable="true" type="xs:string"/>
+						<xs:element minOccurs="0" name="amount" type="xs:decimal"/>
+						<xs:element minOccurs="0" name="cheque" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SubtractBonusResponse">
+				<xs:complexType>
+					<xs:sequence/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SubtractBonus45">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="discountCardNumber" nillable="true" type="xs:string"/>
+						<xs:element minOccurs="0" name="amount" type="xs:decimal"/>
+						<xs:element minOccurs="0" name="cheque" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SubtractBonus45Response">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="SubtractBonus45Result" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CancelSubtractBonus">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="discountCardNumber" nillable="true" type="xs:string"/>
+						<xs:element minOccurs="0" name="amount" type="xs:decimal"/>
+						<xs:element minOccurs="0" name="cheque" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CancelSubtractBonusResponse">
+				<xs:complexType>
+					<xs:sequence/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ValidateUser">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="userName" nillable="true" type="xs:string"/>
+						<xs:element minOccurs="0" name="password" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ValidateUserResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="ValidateUserResult" type="xs:boolean"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CheckDiscountCard">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="discountCard" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CheckDiscountCardResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="CheckDiscountCardResult" type="xs:boolean"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ValidateUserRole">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="userName" nillable="true" type="xs:string"/>
+						<xs:element minOccurs="0" name="roleName" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ValidateUserRoleResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="ValidateUserRoleResult" type="xs:boolean"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetUserRole">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="userName" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetUserRoleResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="GetUserRoleResult" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ActivationPaymentCard">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="discountCard" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ActivationPaymentCardResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="ActivationPaymentCardResult" type="xs:decimal"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CancelActivationPaymentCard">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="discountCard" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CancelActivationPaymentCardResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="CancelActivationPaymentCardResult" type="xs:boolean"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="QuerySyncStream">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="data" nillable="true" type="q4:ArrayOfTupleOfstringlong" xmlns:q4="http://schemas.datacontract.org/2004/07/System"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="QuerySyncStreamResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="QuerySyncStreamResult" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetSyncStream">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="taskID" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetSyncStreamResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="GetSyncStreamResult" type="q5:StreamBody" xmlns:q5="http://schemas.microsoft.com/Message"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="IsTaskCompleted">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="taskID" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="IsTaskCompletedResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="IsTaskCompletedResult" type="xs:boolean"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetUpdateStream">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="filename" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetUpdateStreamResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="GetUpdateStreamResult" type="q6:StreamBody" xmlns:q6="http://schemas.microsoft.com/Message"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="UploadReferences">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="packet" nillable="true" type="xs:string"/>
+						<xs:element minOccurs="0" name="stamp" type="xs:long"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="UploadReferencesResponse">
+				<xs:complexType>
+					<xs:sequence/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetReferencesStamp">
+				<xs:complexType>
+					<xs:sequence/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetReferencesStampResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="GetReferencesStampResult" type="xs:long"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetDataPacket">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="paramPacket" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetDataPacketResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="GetDataPacketResult" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SendInfoPacket">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="packet" nillable="true" type="q7:RSInfoPacket" xmlns:q7="http://schemas.datacontract.org/2004/07/RS.Loyalty.Domain.Protocol"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SendInfoPacketResponse">
+				<xs:complexType>
+					<xs:sequence/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetStatistic">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="accointId" type="xs:long"/>
+						<xs:element minOccurs="0" name="itemIds" nillable="true" type="q8:ArrayOflong" xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+						<xs:element minOccurs="0" name="time" type="xs:dateTime"/>
+						<xs:element minOccurs="0" name="statisticFlag" type="q9:StatisticPeriodicityType" xmlns:q9="http://schemas.datacontract.org/2004/07/RS.Loyalty.Domain.Protocol"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetStatisticResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="GetStatisticResult" nillable="true" type="q10:ArrayOfItemStatistics" xmlns:q10="http://schemas.datacontract.org/2004/07/RS.Loyalty.Domain.Protocol"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:schema>
+		<xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/">
+			<xs:element name="anyType" nillable="true" type="xs:anyType"/>
+			<xs:element name="anyURI" nillable="true" type="xs:anyURI"/>
+			<xs:element name="base64Binary" nillable="true" type="xs:base64Binary"/>
+			<xs:element name="boolean" nillable="true" type="xs:boolean"/>
+			<xs:element name="byte" nillable="true" type="xs:byte"/>
+			<xs:element name="dateTime" nillable="true" type="xs:dateTime"/>
+			<xs:element name="decimal" nillable="true" type="xs:decimal"/>
+			<xs:element name="double" nillable="true" type="xs:double"/>
+			<xs:element name="float" nillable="true" type="xs:float"/>
+			<xs:element name="int" nillable="true" type="xs:int"/>
+			<xs:element name="long" nillable="true" type="xs:long"/>
+			<xs:element name="QName" nillable="true" type="xs:QName"/>
+			<xs:element name="short" nillable="true" type="xs:short"/>
+			<xs:element name="string" nillable="true" type="xs:string"/>
+			<xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte"/>
+			<xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt"/>
+			<xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong"/>
+			<xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort"/>
+			<xs:element name="char" nillable="true" type="tns:char"/>
+			<xs:simpleType name="char">
+				<xs:restriction base="xs:int"/>
+			</xs:simpleType>
+			<xs:element name="duration" nillable="true" type="tns:duration"/>
+			<xs:simpleType name="duration">
+				<xs:restriction base="xs:duration">
+					<xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?"/>
+					<xs:minInclusive value="-P10675199DT2H48M5.4775808S"/>
+					<xs:maxInclusive value="P10675199DT2H48M5.4775807S"/>
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:element name="guid" nillable="true" type="tns:guid"/>
+			<xs:simpleType name="guid">
+				<xs:restriction base="xs:string">
+					<xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}"/>
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:attribute name="FactoryType" type="xs:QName"/>
+			<xs:attribute name="Id" type="xs:ID"/>
+			<xs:attribute name="Ref" type="xs:IDREF"/>
+		</xs:schema>
+		<xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+			<xs:complexType name="ArrayOfKeyValueOfstringstring">
+				<xs:annotation>
+					<xs:appinfo>
+						<IsDictionary xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsDictionary>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:sequence>
+					<xs:element minOccurs="0" maxOccurs="unbounded" name="KeyValueOfstringstring">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="Key" nillable="true" type="xs:string"/>
+								<xs:element name="Value" nillable="true" type="xs:string"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="ArrayOfKeyValueOfstringstring" nillable="true" type="tns:ArrayOfKeyValueOfstringstring"/>
+			<xs:complexType name="ArrayOflong">
+				<xs:sequence>
+					<xs:element minOccurs="0" maxOccurs="unbounded" name="long" type="xs:long"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="ArrayOflong" nillable="true" type="tns:ArrayOflong"/>
+		</xs:schema>
+		<xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/RS.Loyalty.Domain.Protocol" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.datacontract.org/2004/07/RS.Loyalty.Domain.Protocol">
+			<xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/"/>
+			<xs:complexType name="StoreConfig">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="NoAddBonusForAdvertising" type="xs:boolean"/>
+					<xs:element minOccurs="0" name="NoDiscountsForAdvertising" type="xs:boolean"/>
+					<xs:element minOccurs="0" name="NoPayBonusForAdvertising" type="xs:boolean"/>
+					<xs:element minOccurs="0" name="OfflineCheckTime" type="xs:long"/>
+					<xs:element minOccurs="0" name="OfflineChequeSendCount" type="xs:int"/>
+					<xs:element minOccurs="0" name="OfflineDiscount" type="xs:boolean"/>
+					<xs:element minOccurs="0" name="OnlineCheckTime" type="xs:long"/>
+					<xs:element minOccurs="0" name="StoreSettingsID" type="xs:long"/>
+					<xs:element minOccurs="0" name="SyncroTimeout" type="xs:long"/>
+					<xs:element minOccurs="0" name="Timeout" type="xs:long"/>
+					<xs:element minOccurs="0" name="UseMapping" type="xs:boolean"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="StoreConfig" nillable="true" type="tns:StoreConfig"/>
+			<xs:complexType name="RSInfoPacket">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="OfflineChequeCount" type="xs:long"/>
+					<xs:element minOccurs="0" name="Version" nillable="true" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="RSInfoPacket" nillable="true" type="tns:RSInfoPacket"/>
+			<xs:simpleType name="StatisticPeriodicityType">
+				<xs:list>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="None"/>
+							<xs:enumeration value="Daily"/>
+							<xs:enumeration value="Weekly">
+								<xs:annotation>
+									<xs:appinfo>
+										<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">8</EnumerationValue>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:enumeration>
+							<xs:enumeration value="Monthly">
+								<xs:annotation>
+									<xs:appinfo>
+										<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">16</EnumerationValue>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:enumeration>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:list>
+			</xs:simpleType>
+			<xs:element name="StatisticPeriodicityType" nillable="true" type="tns:StatisticPeriodicityType"/>
+			<xs:complexType name="ArrayOfItemStatistics">
+				<xs:sequence>
+					<xs:element minOccurs="0" maxOccurs="unbounded" name="ItemStatistics" nillable="true" type="tns:ItemStatistics"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="ArrayOfItemStatistics" nillable="true" type="tns:ArrayOfItemStatistics"/>
+			<xs:complexType name="ItemStatistics">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="DailyQuantity" type="xs:decimal"/>
+					<xs:element minOccurs="0" name="ItemId" type="xs:long"/>
+					<xs:element minOccurs="0" name="MonthlyQuantity" type="xs:decimal"/>
+					<xs:element minOccurs="0" name="WeeklyQuantity" type="xs:decimal"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="ItemStatistics" nillable="true" type="tns:ItemStatistics"/>
+		</xs:schema>
+		<xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/System" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.datacontract.org/2004/07/System">
+			<xs:complexType name="ArrayOfTupleOfstringlong">
+				<xs:sequence>
+					<xs:element minOccurs="0" maxOccurs="unbounded" name="TupleOfstringlong" nillable="true" type="tns:TupleOfstringlong"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="ArrayOfTupleOfstringlong" nillable="true" type="tns:ArrayOfTupleOfstringlong"/>
+			<xs:complexType name="TupleOfstringlong">
+				<xs:annotation>
+					<xs:appinfo>
+						<GenericType Name="TupleOf{0}{1}{#}" Namespace="http://schemas.datacontract.org/2004/07/System" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+							<GenericParameter Name="string" Namespace="http://www.w3.org/2001/XMLSchema"/>
+							<GenericParameter Name="long" Namespace="http://www.w3.org/2001/XMLSchema"/>
+						</GenericType>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:sequence>
+					<xs:element name="m_Item1" nillable="true" type="xs:string"/>
+					<xs:element name="m_Item2" type="xs:long"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="TupleOfstringlong" nillable="true" type="tns:TupleOfstringlong"/>
+		</xs:schema>
+		<xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/Message" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/Message">
+			<xs:simpleType name="StreamBody">
+				<xs:restriction base="xs:base64Binary"/>
+			</xs:simpleType>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="IRSLoyaltyService_Ping_InputMessage">
+		<wsdl:part name="parameters" element="tns:Ping"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_Ping_OutputMessage">
+		<wsdl:part name="parameters" element="tns:PingResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_IsOnline_InputMessage">
+		<wsdl:part name="parameters" element="tns:IsOnline"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_IsOnline_OutputMessage">
+		<wsdl:part name="parameters" element="tns:IsOnlineResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_GetParameters_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetParameters"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_GetParameters_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetParametersResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_GetStoreSettings_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetStoreSettings"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_GetStoreSettings_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetStoreSettingsResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_RegisterDiscountCard_InputMessage">
+		<wsdl:part name="parameters" element="tns:RegisterDiscountCard"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_RegisterDiscountCard_OutputMessage">
+		<wsdl:part name="parameters" element="tns:RegisterDiscountCardResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_IsCardValid_InputMessage">
+		<wsdl:part name="parameters" element="tns:IsCardValid"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_IsCardValid_OutputMessage">
+		<wsdl:part name="parameters" element="tns:IsCardValidResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_IsCouponValid_InputMessage">
+		<wsdl:part name="parameters" element="tns:IsCouponValid"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_IsCouponValid_OutputMessage">
+		<wsdl:part name="parameters" element="tns:IsCouponValidResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_GetVerifyCode_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetVerifyCode"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_GetVerifyCode_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetVerifyCodeResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_GetCardBalance_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetCardBalance"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_GetCardBalance_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetCardBalanceResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_GetCardDiscountAmount_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetCardDiscountAmount"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_GetCardDiscountAmount_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetCardDiscountAmountResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_GetCardDiscountAmountString_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetCardDiscountAmountString"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_GetCardDiscountAmountString_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetCardDiscountAmountStringResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_GetMessages_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetMessages"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_GetMessages_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetMessagesResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_GetDiscounts_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetDiscounts"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_GetDiscounts_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetDiscountsResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_GetEmail_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetEmail"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_GetEmail_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetEmailResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_GetSelfBuyDiscounts_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetSelfBuyDiscounts"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_GetSelfBuyDiscounts_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetSelfBuyDiscountsResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_Accrual_InputMessage">
+		<wsdl:part name="parameters" element="tns:Accrual"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_Accrual_OutputMessage">
+		<wsdl:part name="parameters" element="tns:AccrualResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_OfflineAccrual_InputMessage">
+		<wsdl:part name="parameters" element="tns:OfflineAccrual"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_OfflineAccrual_OutputMessage">
+		<wsdl:part name="parameters" element="tns:OfflineAccrualResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_Refund_InputMessage">
+		<wsdl:part name="parameters" element="tns:Refund"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_Refund_OutputMessage">
+		<wsdl:part name="parameters" element="tns:RefundResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_SubtractBonus_InputMessage">
+		<wsdl:part name="parameters" element="tns:SubtractBonus"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_SubtractBonus_OutputMessage">
+		<wsdl:part name="parameters" element="tns:SubtractBonusResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_SubtractBonus45_InputMessage">
+		<wsdl:part name="parameters" element="tns:SubtractBonus45"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_SubtractBonus45_OutputMessage">
+		<wsdl:part name="parameters" element="tns:SubtractBonus45Response"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_CancelSubtractBonus_InputMessage">
+		<wsdl:part name="parameters" element="tns:CancelSubtractBonus"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_CancelSubtractBonus_OutputMessage">
+		<wsdl:part name="parameters" element="tns:CancelSubtractBonusResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_ValidateUser_InputMessage">
+		<wsdl:part name="parameters" element="tns:ValidateUser"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_ValidateUser_OutputMessage">
+		<wsdl:part name="parameters" element="tns:ValidateUserResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_CheckDiscountCard_InputMessage">
+		<wsdl:part name="parameters" element="tns:CheckDiscountCard"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_CheckDiscountCard_OutputMessage">
+		<wsdl:part name="parameters" element="tns:CheckDiscountCardResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_ValidateUserRole_InputMessage">
+		<wsdl:part name="parameters" element="tns:ValidateUserRole"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_ValidateUserRole_OutputMessage">
+		<wsdl:part name="parameters" element="tns:ValidateUserRoleResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_GetUserRole_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetUserRole"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_GetUserRole_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetUserRoleResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_ActivationPaymentCard_InputMessage">
+		<wsdl:part name="parameters" element="tns:ActivationPaymentCard"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_ActivationPaymentCard_OutputMessage">
+		<wsdl:part name="parameters" element="tns:ActivationPaymentCardResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_CancelActivationPaymentCard_InputMessage">
+		<wsdl:part name="parameters" element="tns:CancelActivationPaymentCard"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_CancelActivationPaymentCard_OutputMessage">
+		<wsdl:part name="parameters" element="tns:CancelActivationPaymentCardResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_QuerySyncStream_InputMessage">
+		<wsdl:part name="parameters" element="tns:QuerySyncStream"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_QuerySyncStream_OutputMessage">
+		<wsdl:part name="parameters" element="tns:QuerySyncStreamResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_GetSyncStream_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetSyncStream"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_GetSyncStream_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetSyncStreamResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_IsTaskCompleted_InputMessage">
+		<wsdl:part name="parameters" element="tns:IsTaskCompleted"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_IsTaskCompleted_OutputMessage">
+		<wsdl:part name="parameters" element="tns:IsTaskCompletedResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_GetUpdateStream_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetUpdateStream"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_GetUpdateStream_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetUpdateStreamResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_UploadReferences_InputMessage">
+		<wsdl:part name="parameters" element="tns:UploadReferences"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_UploadReferences_OutputMessage">
+		<wsdl:part name="parameters" element="tns:UploadReferencesResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_GetReferencesStamp_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetReferencesStamp"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_GetReferencesStamp_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetReferencesStampResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_GetDataPacket_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetDataPacket"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_GetDataPacket_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetDataPacketResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_SendInfoPacket_InputMessage">
+		<wsdl:part name="parameters" element="tns:SendInfoPacket"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_SendInfoPacket_OutputMessage">
+		<wsdl:part name="parameters" element="tns:SendInfoPacketResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_GetStatistic_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetStatistic"/>
+	</wsdl:message>
+	<wsdl:message name="IRSLoyaltyService_GetStatistic_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetStatisticResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IRSLoyaltyService">
+		<wsdl:operation name="Ping">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/Ping" message="tns:IRSLoyaltyService_Ping_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/PingResponse" message="tns:IRSLoyaltyService_Ping_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="IsOnline">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/IsOnline" message="tns:IRSLoyaltyService_IsOnline_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/IsOnlineResponse" message="tns:IRSLoyaltyService_IsOnline_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetParameters">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/GetParameters" message="tns:IRSLoyaltyService_GetParameters_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/GetParametersResponse" message="tns:IRSLoyaltyService_GetParameters_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetStoreSettings">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/GetStoreSettings" message="tns:IRSLoyaltyService_GetStoreSettings_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/GetStoreSettingsResponse" message="tns:IRSLoyaltyService_GetStoreSettings_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="RegisterDiscountCard">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/RegisterDiscountCard" message="tns:IRSLoyaltyService_RegisterDiscountCard_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/RegisterDiscountCardResponse" message="tns:IRSLoyaltyService_RegisterDiscountCard_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="IsCardValid">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/IsCardValid" message="tns:IRSLoyaltyService_IsCardValid_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/IsCardValidResponse" message="tns:IRSLoyaltyService_IsCardValid_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="IsCouponValid">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/IsCouponValid" message="tns:IRSLoyaltyService_IsCouponValid_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/IsCouponValidResponse" message="tns:IRSLoyaltyService_IsCouponValid_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetVerifyCode">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/GetVerifyCode" message="tns:IRSLoyaltyService_GetVerifyCode_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/GetVerifyCodeResponse" message="tns:IRSLoyaltyService_GetVerifyCode_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetCardBalance">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/GetCardBalance" message="tns:IRSLoyaltyService_GetCardBalance_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/GetCardBalanceResponse" message="tns:IRSLoyaltyService_GetCardBalance_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetCardDiscountAmount">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/GetCardDiscountAmount" message="tns:IRSLoyaltyService_GetCardDiscountAmount_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/GetCardDiscountAmountResponse" message="tns:IRSLoyaltyService_GetCardDiscountAmount_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetCardDiscountAmountString">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/GetCardDiscountAmountString" message="tns:IRSLoyaltyService_GetCardDiscountAmountString_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/GetCardDiscountAmountStringResponse" message="tns:IRSLoyaltyService_GetCardDiscountAmountString_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetMessages">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/GetMessages" message="tns:IRSLoyaltyService_GetMessages_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/GetMessagesResponse" message="tns:IRSLoyaltyService_GetMessages_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetDiscounts">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/GetDiscounts" message="tns:IRSLoyaltyService_GetDiscounts_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/GetDiscountsResponse" message="tns:IRSLoyaltyService_GetDiscounts_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetEmail">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/GetEmail" message="tns:IRSLoyaltyService_GetEmail_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/GetEmailResponse" message="tns:IRSLoyaltyService_GetEmail_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetSelfBuyDiscounts">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/GetSelfBuyDiscounts" message="tns:IRSLoyaltyService_GetSelfBuyDiscounts_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/GetSelfBuyDiscountsResponse" message="tns:IRSLoyaltyService_GetSelfBuyDiscounts_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="Accrual">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/Accrual" message="tns:IRSLoyaltyService_Accrual_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/AccrualResponse" message="tns:IRSLoyaltyService_Accrual_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="OfflineAccrual">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/OfflineAccrual" message="tns:IRSLoyaltyService_OfflineAccrual_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/OfflineAccrualResponse" message="tns:IRSLoyaltyService_OfflineAccrual_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="Refund">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/Refund" message="tns:IRSLoyaltyService_Refund_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/RefundResponse" message="tns:IRSLoyaltyService_Refund_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="SubtractBonus">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/SubtractBonus" message="tns:IRSLoyaltyService_SubtractBonus_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/SubtractBonusResponse" message="tns:IRSLoyaltyService_SubtractBonus_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="SubtractBonus45">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/SubtractBonus45" message="tns:IRSLoyaltyService_SubtractBonus45_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/SubtractBonus45Response" message="tns:IRSLoyaltyService_SubtractBonus45_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="CancelSubtractBonus">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/CancelSubtractBonus" message="tns:IRSLoyaltyService_CancelSubtractBonus_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/CancelSubtractBonusResponse" message="tns:IRSLoyaltyService_CancelSubtractBonus_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="ValidateUser">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/ValidateUser" message="tns:IRSLoyaltyService_ValidateUser_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/ValidateUserResponse" message="tns:IRSLoyaltyService_ValidateUser_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="CheckDiscountCard">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/CheckDiscountCard" message="tns:IRSLoyaltyService_CheckDiscountCard_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/CheckDiscountCardResponse" message="tns:IRSLoyaltyService_CheckDiscountCard_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="ValidateUserRole">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/ValidateUserRole" message="tns:IRSLoyaltyService_ValidateUserRole_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/ValidateUserRoleResponse" message="tns:IRSLoyaltyService_ValidateUserRole_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetUserRole">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/GetUserRole" message="tns:IRSLoyaltyService_GetUserRole_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/GetUserRoleResponse" message="tns:IRSLoyaltyService_GetUserRole_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="ActivationPaymentCard">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/ActivationPaymentCard" message="tns:IRSLoyaltyService_ActivationPaymentCard_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/ActivationPaymentCardResponse" message="tns:IRSLoyaltyService_ActivationPaymentCard_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="CancelActivationPaymentCard">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/CancelActivationPaymentCard" message="tns:IRSLoyaltyService_CancelActivationPaymentCard_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/CancelActivationPaymentCardResponse" message="tns:IRSLoyaltyService_CancelActivationPaymentCard_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="QuerySyncStream">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/QuerySyncStream" message="tns:IRSLoyaltyService_QuerySyncStream_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/QuerySyncStreamResponse" message="tns:IRSLoyaltyService_QuerySyncStream_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetSyncStream">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/GetSyncStream" message="tns:IRSLoyaltyService_GetSyncStream_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/GetSyncStreamResponse" message="tns:IRSLoyaltyService_GetSyncStream_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="IsTaskCompleted">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/IsTaskCompleted" message="tns:IRSLoyaltyService_IsTaskCompleted_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/IsTaskCompletedResponse" message="tns:IRSLoyaltyService_IsTaskCompleted_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetUpdateStream">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/GetUpdateStream" message="tns:IRSLoyaltyService_GetUpdateStream_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/GetUpdateStreamResponse" message="tns:IRSLoyaltyService_GetUpdateStream_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="UploadReferences">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/UploadReferences" message="tns:IRSLoyaltyService_UploadReferences_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/UploadReferencesResponse" message="tns:IRSLoyaltyService_UploadReferences_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetReferencesStamp">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/GetReferencesStamp" message="tns:IRSLoyaltyService_GetReferencesStamp_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/GetReferencesStampResponse" message="tns:IRSLoyaltyService_GetReferencesStamp_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetDataPacket">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/GetDataPacket" message="tns:IRSLoyaltyService_GetDataPacket_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/GetDataPacketResponse" message="tns:IRSLoyaltyService_GetDataPacket_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="SendInfoPacket">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/SendInfoPacket" message="tns:IRSLoyaltyService_SendInfoPacket_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/SendInfoPacketResponse" message="tns:IRSLoyaltyService_SendInfoPacket_OutputMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetStatistic">
+			<wsdl:input wsaw:Action="http://tempuri.org/IRSLoyaltyService/GetStatistic" message="tns:IRSLoyaltyService_GetStatistic_InputMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IRSLoyaltyService/GetStatisticResponse" message="tns:IRSLoyaltyService_GetStatistic_OutputMessage"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="CustomBinding_IRSLoyaltyService" type="tns:IRSLoyaltyService">
+		<wsp:PolicyReference URI="#CustomBinding_IRSLoyaltyService_policy"/>
+		<soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="Ping">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/Ping" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="IsOnline">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/IsOnline" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetParameters">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/GetParameters" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetStoreSettings">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/GetStoreSettings" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="RegisterDiscountCard">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/RegisterDiscountCard" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="IsCardValid">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/IsCardValid" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="IsCouponValid">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/IsCouponValid" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetVerifyCode">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/GetVerifyCode" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetCardBalance">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/GetCardBalance" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetCardDiscountAmount">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/GetCardDiscountAmount" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetCardDiscountAmountString">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/GetCardDiscountAmountString" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetMessages">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/GetMessages" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetDiscounts">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/GetDiscounts" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetEmail">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/GetEmail" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetSelfBuyDiscounts">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/GetSelfBuyDiscounts" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="Accrual">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/Accrual" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="OfflineAccrual">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/OfflineAccrual" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="Refund">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/Refund" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="SubtractBonus">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/SubtractBonus" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="SubtractBonus45">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/SubtractBonus45" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="CancelSubtractBonus">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/CancelSubtractBonus" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ValidateUser">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/ValidateUser" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="CheckDiscountCard">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/CheckDiscountCard" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ValidateUserRole">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/ValidateUserRole" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetUserRole">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/GetUserRole" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ActivationPaymentCard">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/ActivationPaymentCard" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="CancelActivationPaymentCard">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/CancelActivationPaymentCard" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="QuerySyncStream">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/QuerySyncStream" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetSyncStream">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/GetSyncStream" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="IsTaskCompleted">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/IsTaskCompleted" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetUpdateStream">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/GetUpdateStream" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UploadReferences">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/UploadReferences" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetReferencesStamp">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/GetReferencesStamp" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetDataPacket">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/GetDataPacket" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="SendInfoPacket">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/SendInfoPacket" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetStatistic">
+			<soap12:operation soapAction="http://tempuri.org/IRSLoyaltyService/GetStatistic" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="RSLoyaltyService">
+		<wsdl:port name="CustomBinding_IRSLoyaltyService" binding="tns:CustomBinding_IRSLoyaltyService">
+			<soap12:address location="https://localhost/RS.Loyalty.Service/RSLoyaltyService.svc"/>
+			<wsa10:EndpointReference>
+				<wsa10:Address>https://localhost/RS.Loyalty.Service/RSLoyaltyService.svc</wsa10:Address>
+			</wsa10:EndpointReference>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
