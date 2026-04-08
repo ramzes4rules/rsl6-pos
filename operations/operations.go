@@ -7,7 +7,7 @@ import (
 	//
 	//"github.com/rs/zerolog/log"
 	"github.com/ramzes4rules/rsl6-pos/cheque"
-	"github.com/ramzes4rules/rsl6-pos/client"
+	//"github.com/ramzes4rules/rsl6-pos/client"
 	"github.com/ramzes4rules/rsl6-pos/models"
 )
 
