@@ -1,4 +1,4 @@
-package rslpos
+package client
 
 import "context"
 
@@ -113,4 +113,3 @@ type Service interface {
 	// GetStatistic retrieves item statistics.
 	GetStatistic(ctx context.Context, req GetStatisticRequest) ([]ItemStatistics, error)
 }
-

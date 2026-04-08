@@ -1,4 +1,4 @@
-package rslpos
+package client
 
 import "fmt"
 
@@ -23,4 +23,3 @@ func IsFaultError(err error) (*FaultError, bool) {
 	}
 	return nil, false
 }
-

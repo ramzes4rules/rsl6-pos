@@ -1,4 +1,4 @@
-package rslpos
+package client
 
 import (
 	"bytes"
@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/ramzes4rules/rsl6.pos.client/internal/soap"
+	"github.com/ramzes4rules/rsl6-pos/client/internal/soap"
 )
 
 // Client implements the Service interface as a SOAP 1.2 client

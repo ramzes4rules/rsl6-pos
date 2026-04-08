@@ -1,4 +1,4 @@
-package rslpos
+package client
 
 import (
 	"context"
@@ -1033,4 +1033,3 @@ func TestHTTP500WithSOAPFault(t *testing.T) {
 		t.Errorf("expected 'Internal error', got %s", fe.Reason)
 	}
 }
-

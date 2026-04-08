@@ -1,4 +1,4 @@
-package rslpos
+package client
 
 import (
 	"context"
@@ -68,11 +68,11 @@ func (c *Client) GetParameters(ctx context.Context, isStore bool) (map[string]st
 
 func (c *Client) GetStoreSettings(ctx context.Context, currentSettings *StoreConfig) (*StoreConfig, error) {
 	type req struct {
-		XMLName         xml.Name              `xml:"http://tempuri.org/ GetStoreSettings"`
+		XMLName         xml.Name               `xml:"http://tempuri.org/ GetStoreSettings"`
 		CurrentSettings *soap.XmlStoreConfigNS `xml:"http://tempuri.org/ currentSettings,omitempty"`
 	}
 	type resp struct {
-		XMLName xml.Name            `xml:"GetStoreSettingsResponse"`
+		XMLName xml.Name             `xml:"GetStoreSettingsResponse"`
 		Result  *soap.XmlStoreConfig `xml:"GetStoreSettingsResult"`
 	}
 	var r resp
@@ -173,7 +173,7 @@ func (c *Client) GetCardDiscountAmount(ctx context.Context, discountCardNumber, 
 		Cheque             string   `xml:"http://tempuri.org/ cheque"`
 	}
 	type resp struct {
-		XMLName xml.Name       `xml:"GetCardDiscountAmountResponse"`
+		XMLName xml.Name        `xml:"GetCardDiscountAmountResponse"`
 		Result  soap.XmlDecimal `xml:"GetCardDiscountAmountResult"`
 	}
 	var r resp
@@ -326,10 +326,10 @@ func (c *Client) Refund(ctx context.Context, refundCheque string, chequeID int64
 
 func (c *Client) SubtractBonus(ctx context.Context, discountCardNumber string, amount float64, cheque string) error {
 	type req struct {
-		XMLName            xml.Name       `xml:"http://tempuri.org/ SubtractBonus"`
-		DiscountCardNumber string         `xml:"http://tempuri.org/ discountCardNumber"`
+		XMLName            xml.Name        `xml:"http://tempuri.org/ SubtractBonus"`
+		DiscountCardNumber string          `xml:"http://tempuri.org/ discountCardNumber"`
 		Amount             soap.XmlDecimal `xml:"http://tempuri.org/ amount"`
-		Cheque             string         `xml:"http://tempuri.org/ cheque"`
+		Cheque             string          `xml:"http://tempuri.org/ cheque"`
 	}
 	return c.call(ctx, "SubtractBonus", req{
 		DiscountCardNumber: discountCardNumber,
@@ -342,10 +342,10 @@ func (c *Client) SubtractBonus(ctx context.Context, discountCardNumber string, a
 
 func (c *Client) SubtractBonus45(ctx context.Context, discountCardNumber string, amount float64, cheque string) (string, error) {
 	type req struct {
-		XMLName            xml.Name       `xml:"http://tempuri.org/ SubtractBonus45"`
-		DiscountCardNumber string         `xml:"http://tempuri.org/ discountCardNumber"`
+		XMLName            xml.Name        `xml:"http://tempuri.org/ SubtractBonus45"`
+		DiscountCardNumber string          `xml:"http://tempuri.org/ discountCardNumber"`
 		Amount             soap.XmlDecimal `xml:"http://tempuri.org/ amount"`
-		Cheque             string         `xml:"http://tempuri.org/ cheque"`
+		Cheque             string          `xml:"http://tempuri.org/ cheque"`
 	}
 	type resp struct {
 		XMLName xml.Name `xml:"SubtractBonus45Response"`
@@ -366,10 +366,10 @@ func (c *Client) SubtractBonus45(ctx context.Context, discountCardNumber string,
 
 func (c *Client) CancelSubtractBonus(ctx context.Context, discountCardNumber string, amount float64, cheque string) error {
 	type req struct {
-		XMLName            xml.Name       `xml:"http://tempuri.org/ CancelSubtractBonus"`
-		DiscountCardNumber string         `xml:"http://tempuri.org/ discountCardNumber"`
+		XMLName            xml.Name        `xml:"http://tempuri.org/ CancelSubtractBonus"`
+		DiscountCardNumber string          `xml:"http://tempuri.org/ discountCardNumber"`
 		Amount             soap.XmlDecimal `xml:"http://tempuri.org/ amount"`
-		Cheque             string         `xml:"http://tempuri.org/ cheque"`
+		Cheque             string          `xml:"http://tempuri.org/ cheque"`
 	}
 	return c.call(ctx, "CancelSubtractBonus", req{
 		DiscountCardNumber: discountCardNumber,
@@ -460,7 +460,7 @@ func (c *Client) ActivationPaymentCard(ctx context.Context, discountCard string)
 		DiscountCard string   `xml:"http://tempuri.org/ discountCard"`
 	}
 	type resp struct {
-		XMLName xml.Name       `xml:"ActivationPaymentCardResponse"`
+		XMLName xml.Name        `xml:"ActivationPaymentCardResponse"`
 		Result  soap.XmlDecimal `xml:"ActivationPaymentCardResult"`
 	}
 	var r resp
@@ -639,8 +639,8 @@ func (c *Client) SendInfoPacket(ctx context.Context, packet *RSInfoPacket) error
 		Version            string `xml:"http://schemas.datacontract.org/2004/07/RS.Loyalty.Domain.Protocol Version"`
 	}
 	type req struct {
-		XMLName xml.Name    `xml:"http://tempuri.org/ SendInfoPacket"`
-		Packet  *xmlPacket  `xml:"http://tempuri.org/ packet,omitempty"`
+		XMLName xml.Name   `xml:"http://tempuri.org/ SendInfoPacket"`
+		Packet  *xmlPacket `xml:"http://tempuri.org/ packet,omitempty"`
 	}
 	var p *xmlPacket
 	if packet != nil {
@@ -656,11 +656,11 @@ func (c *Client) SendInfoPacket(ctx context.Context, packet *RSInfoPacket) error
 
 func (c *Client) GetStatistic(ctx context.Context, params GetStatisticRequest) ([]ItemStatistics, error) {
 	type req struct {
-		XMLName       xml.Name        `xml:"http://tempuri.org/ GetStatistic"`
-		AccountID     int64           `xml:"http://tempuri.org/ accointId"`
+		XMLName       xml.Name          `xml:"http://tempuri.org/ GetStatistic"`
+		AccountID     int64             `xml:"http://tempuri.org/ accointId"`
 		ItemIDs       soap.XmlLongArray `xml:"http://tempuri.org/ itemIds"`
-		Time          soap.XmlDateTime `xml:"http://tempuri.org/ time"`
-		StatisticFlag string          `xml:"http://tempuri.org/ statisticFlag"`
+		Time          soap.XmlDateTime  `xml:"http://tempuri.org/ time"`
+		StatisticFlag string            `xml:"http://tempuri.org/ statisticFlag"`
 	}
 	ra := req{
 		AccountID:     params.AccountID,
@@ -735,4 +735,3 @@ func fromXMLStoreConfig(x *soap.XmlStoreConfig) *StoreConfig {
 		UseMapping:                x.UseMapping,
 	}
 }
-

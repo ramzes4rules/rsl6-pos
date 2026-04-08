@@ -1,4 +1,4 @@
-package rslpos
+package client
 
 import "time"
 
@@ -54,4 +54,3 @@ type GetStatisticRequest struct {
 	Time          time.Time
 	StatisticFlag StatisticPeriodicityType
 }
-

@@ -34,5 +34,4 @@
 //
 //	m := new(rslposmock.MockService)
 //	m.On("IsCardValid", mock.Anything, "CARD001").Return(true, nil)
-package rslpos
-
+package client
